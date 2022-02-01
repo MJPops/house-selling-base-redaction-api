@@ -26,7 +26,6 @@ namespace HouseSellingBaseRedactionApi.Repositores
             {
                 throw new Exception();
             }
-            await _dbContext.Houses.Include(h => h.Users).ToListAsync();
             return user;
         }
         public async Task UpdateUserAsync(User user)

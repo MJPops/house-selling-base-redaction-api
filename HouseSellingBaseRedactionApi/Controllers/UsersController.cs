@@ -22,6 +22,11 @@ namespace HouseSellingBaseRedactionApi.Controllers
         {
             return await _userRepositore.GetAllUsersAsync();
         }
+        [HttpGet("userId")]
+        public async Task<User> GetUser(int userId)
+        {
+            return await _userRepositore.GetUserByIdAsync(userId);
+        }
 
         [HttpPut("{userId}")]
         public async Task<IActionResult> SetAdminRole(int userId)
