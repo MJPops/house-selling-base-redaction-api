@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/HouseSellingBaseRedactionApi/Properties/PublishProfiles
+/HouseSellingBaseRedactionApi/HouseSellingBaseRedactionApi.csproj.user
+/HouseSellingBaseRedactionApi/.config
+/HouseSellingBaseRedactionApi/bin/Release/net5.0
+/HouseSellingBaseRedactionApi/obj/Release/net5.0
