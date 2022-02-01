@@ -18,30 +18,30 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<House>> GetHouses()
+        public async Task<IEnumerable<House>> Get()
         {
             return await _housesRepositore.GetAllHousesAsync();
         }
-        [HttpGet("{houseId}")]
-        public async Task<House> GetHouses(int houseId)
+        [HttpGet("{id}")]
+        public async Task<House> Get(int id)
         {
-            return await _housesRepositore.GetHouseById(houseId);
+            return await _housesRepositore.GetHouseById(id);
         }
 
         [HttpPost]
-        public async Task AddNewHouse(House house)
+        public async Task Add(House house)
         {
             await _housesRepositore.AddNewHouseAsync(house);
         }
 
         [HttpPut]
-        public async Task PutHouse(House house)
+        public async Task Put(House house)
         {
             await _housesRepositore.UpdateHouseAsync(house);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHouse(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
