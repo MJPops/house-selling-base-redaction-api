@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HouseSellingBaseRedactionApi.Interfaces;
+using System;
 
 namespace HouseSellingBaseRedactionApi.Repositores
 {
@@ -18,5 +19,31 @@ namespace HouseSellingBaseRedactionApi.Repositores
         {
             return await _dbContext.Users.ToListAsync();
         }
+        public async Task<User> GetUserByIdAsync(int userId)
+        {
+            var user = await _dbContext.Users.FindAsync(userId);
+            if (user == null)
+            {
+                throw new Exception();
+            }
+            await _dbContext.Houses.Include(h => h.Users).ToListAsync();
+            return user;
+        }
+        public async Task UpdateUserAsync(User user)
+        {
+            _dbContext.Users.Update(user);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task RemoveUserAsync(int userId)
+        {
+            var user = await _dbContext.Users.FindAsync(userId);
+            if (user == null)
+            {
+                throw new Exception();
+            }
+            _dbContext.Remove(user);
+            await _dbContext.SaveChangesAsync();
+        }
+
     }
 }
