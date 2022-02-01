@@ -22,7 +22,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         {
             return await _userRepositore.GetAllUsersAsync();
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<User> Get(int id)
         {
             return await _userRepositore.GetUserByIdAsync(id);
