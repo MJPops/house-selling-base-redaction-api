@@ -23,6 +23,7 @@ namespace HouseSellingBaseRedactionApi.Repositores
             {
                 throw new NotFoundException();
             }
+            await _dbContext.Users.Include(u=>u.FavoriteHouses).ToListAsync();
             return houses;
         }
         public async Task<House> GetHouseById(int houseId)
@@ -32,6 +33,7 @@ namespace HouseSellingBaseRedactionApi.Repositores
             {
                 throw new NotFoundException();
             }
+            await _dbContext.Users.Include(u => u.FavoriteHouses).ToListAsync();
             return house;
         }
         public async Task AddNewHouseAsync(House house)

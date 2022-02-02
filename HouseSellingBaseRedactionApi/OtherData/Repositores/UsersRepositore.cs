@@ -22,6 +22,7 @@ namespace HouseSellingBaseRedactionApi.Repositores
             {
                 throw new NotFoundException();
             }
+            await _dbContext.Houses.Include(h => h.Users).ToListAsync();
             return users;
         }
         public async Task<User> GetUserByIdAsync(int userId)
@@ -31,6 +32,7 @@ namespace HouseSellingBaseRedactionApi.Repositores
             {
                 throw new NotFoundException();
             }
+            await _dbContext.Houses.Include(h => h.Users).ToListAsync();
             return user;
         }
         public async Task UpdateUserAsync(User user)
