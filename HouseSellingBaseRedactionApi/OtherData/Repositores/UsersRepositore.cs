@@ -1,9 +1,9 @@
-﻿using HouseSellingBaseRedactionApi.Models;
+﻿using HouseSellingBaseRedactionApi.Interfaces;
+using HouseSellingBaseRedactionApi.Models;
+using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HouseSellingBaseRedactionApi.Interfaces;
-using System;
 
 namespace HouseSellingBaseRedactionApi.Repositores
 {
@@ -17,14 +17,19 @@ namespace HouseSellingBaseRedactionApi.Repositores
 
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return await _dbContext.Users.ToListAsync();
+            var users = await _dbContext.Users.ToListAsync();
+            if (users == null)
+            {
+                throw new NotFoundException();
+            }
+            return users;
         }
         public async Task<User> GetUserByIdAsync(int userId)
         {
             var user = await _dbContext.Users.FindAsync(userId);
             if (user == null)
             {
-                throw new Exception();
+                throw new NotFoundException();
             }
             return user;
         }
@@ -38,7 +43,7 @@ namespace HouseSellingBaseRedactionApi.Repositores
             var user = await _dbContext.Users.FindAsync(userId);
             if (user == null)
             {
-                throw new Exception();
+                throw new NotFoundException();
             }
             _dbContext.Remove(user);
             await _dbContext.SaveChangesAsync();

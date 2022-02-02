@@ -1,4 +1,5 @@
 ﻿using HouseSellingBaseRedactionApi.Models;
+using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,12 +11,14 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// Returns all houses from the database.
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="House"/></returns>
+        /// <exception cref="NotFoundException"></exception>
         public Task<IEnumerable<House>> GetAllHousesAsync();
         /// <summary>
         /// Returns the house with the given Id from the database.
         /// </summary>
         /// <param name="houseId"></param>
         /// <returns><see cref="House"/></returns>
+        /// <exception cref="NotFoundException"></exception>
         public Task<House> GetHouseById(int houseId);
         /// <summary>
         /// Adds a house to the database.
@@ -31,7 +34,7 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// Removes the house from the database with the given Id.
         /// </summary>
         /// <param name="houseId">The ID of the house to be deleted.</param>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="NotFoundException"></exception>
         public Task RemoveHouse(int houseId);
     }
 }

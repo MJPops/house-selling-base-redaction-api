@@ -1,5 +1,6 @@
 ﻿using HouseSellingBaseRedactionApi.Interfaces;
 using HouseSellingBaseRedactionApi.Models;
+using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,36 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<User>> Get()
+        public async Task<ActionResult<IEnumerable<User>>> Get()
         {
-            return await _userRepositore.GetAllUsersAsync();
+            try
+            {
+                return new ObjectResult(await _userRepositore.GetAllUsersAsync());
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
         [HttpGet("{id}")]
-        public async Task<User> Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
-            return await _userRepositore.GetUserByIdAsync(id);
+            try
+            {
+                return new ObjectResult(await _userRepositore.GetUserByIdAsync(id));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
+        [HttpPut]
+        public async Task<ActionResult> Put(User user)
+        {
+            await _userRepositore.UpdateUserAsync(user);
+            return Ok();
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> SetAdminRole(int id)
         {

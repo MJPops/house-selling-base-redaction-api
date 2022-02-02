@@ -1,4 +1,5 @@
 ﻿using HouseSellingBaseRedactionApi.Models;
+using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,13 +11,14 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// Returns all users from the database.
         /// </summary>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="User"/></returns>
+        /// <exception cref="NotFoundException"></exception>
         public Task<IEnumerable<User>> GetAllUsersAsync();
         /// <summary>
         /// Finds a user by ID in the database.
         /// </summary>
         /// <param name="userId">The id of the user being searched for.</param>
         /// <returns><see cref="IEnumerable{T}"/> of <see cref="User"/></returns>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="NotFoundException"></exception>
         public Task<User> GetUserByIdAsync(int userId);
         /// <summary>
         /// Changes user data in the database according to the given object.
@@ -27,7 +29,7 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// Deletes the user with the matching ID from the database.
         /// </summary>
         /// <param name="userId">The id of the user to be deleted.</param>
-        /// <exception cref="System.Exception"></exception>
+        /// <exception cref="NotFoundException"></exception>
         public Task RemoveUserAsync(int userId);
     }
 }

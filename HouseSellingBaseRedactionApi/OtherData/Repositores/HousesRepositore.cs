@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HouseSellingBaseRedactionApi.Interfaces;
+using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 
 namespace HouseSellingBaseRedactionApi.Repositores
 {
@@ -17,11 +18,21 @@ namespace HouseSellingBaseRedactionApi.Repositores
 
         public async Task<IEnumerable<House>> GetAllHousesAsync()
         {
-            return await _dbContext.Houses.ToListAsync();
+            var houses = await _dbContext.Houses.ToListAsync();
+            if (houses == null)
+            {
+                throw new NotFoundException();
+            }
+            return houses;
         }
         public async Task<House> GetHouseById(int houseId)
         {
-            return await _dbContext.Houses.FindAsync(houseId);
+            var house = await _dbContext.Houses.FindAsync(houseId);
+            if (house == null)
+            {
+                throw new NotFoundException();
+            }
+            return house;
         }
         public async Task AddNewHouseAsync(House house)
         {
@@ -38,7 +49,7 @@ namespace HouseSellingBaseRedactionApi.Repositores
             var house = await _dbContext.Houses.FindAsync(houseId);
             if (house == null)
             {
-                throw new Exception();
+                throw new NotFoundException();
             }
             _dbContext.Houses.Remove(house);
             await _dbContext.SaveChangesAsync();

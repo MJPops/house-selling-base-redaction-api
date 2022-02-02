@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using HouseSellingBaseRedactionApi.Interfaces;
+using HouseSellingBaseRedactionApi.Models;
+using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HouseSellingBaseRedactionApi.Interfaces;
-using HouseSellingBaseRedactionApi.Models;
 
 namespace HouseSellingBaseRedactionApi.Controllers
 {
@@ -18,37 +18,53 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<House>> Get()
+        public async Task<ActionResult<IEnumerable<House>>> Get()
         {
-            return await _housesRepositore.GetAllHousesAsync();
+            try
+            {
+                return new ObjectResult(await _housesRepositore.GetAllHousesAsync());
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
         [HttpGet("{id}")]
-        public async Task<House> Get(int id)
+        public async Task<ActionResult<House>> Get(int id)
         {
-            return await _housesRepositore.GetHouseById(id);
+            try
+            {
+                return new ObjectResult(await _housesRepositore.GetHouseById(id));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
-        public async Task Add(House house)
+        public async Task<ActionResult> Add(House house)
         {
             await _housesRepositore.AddNewHouseAsync(house);
+            return Ok();
         }
 
         [HttpPut]
-        public async Task Put(House house)
+        public async Task<ActionResult> Put(House house)
         {
             await _housesRepositore.UpdateHouseAsync(house);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 await _housesRepositore.RemoveHouse(id);
                 return Ok();
             }
-            catch (Exception)
+            catch (NotFoundException)
             {
                 return NotFound();
             }
