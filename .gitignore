@@ -8,3 +8,5 @@
 /HouseSellingBaseRedactionApi/.config
 /HouseSellingBaseRedactionApi/bin/Release/net5.0
 /HouseSellingBaseRedactionApi/obj/Release/net5.0
+/HouseSellingBaseRedactionApi/bin/Debug/net5.0
+/HouseSellingBaseRedactionApi/obj
