@@ -10,3 +10,5 @@
 /HouseSellingBaseRedactionApi/obj/Release/net5.0
 /HouseSellingBaseRedactionApi/bin/Debug/net5.0
 /HouseSellingBaseRedactionApi/obj
+/HouseSellingTests/obj
+/HouseSellingTests/bin/Debug/net5.0
