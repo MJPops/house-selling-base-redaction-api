@@ -49,7 +49,6 @@ namespace HouseSellingBaseRedactionApi.Repositores
         }
         public async Task UpdateHouseAsync(House house)
         {
-            await GetHouseByIdAsync(house.Id);
             _dbContext.Houses.Update(house);
             await _dbContext.SaveChangesAsync();
         }
