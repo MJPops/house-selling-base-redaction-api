@@ -24,11 +24,13 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// Adds a house to the database.
         /// </summary>
         /// <param name="house">Added house.</param>
+        /// <exception cref="AlreadyContainsException"></exception>
         public Task AddNewHouseAsync(House house);
         /// <summary>
         /// Update the house model in the database.
         /// </summary>
         /// <param name="house">New house model.</param>
+        /// <exception cref="NotFoundException"></exception>
         public Task UpdateHouseAsync(House house);
         /// <summary>
         /// Removes the house from the database with the given Id.
