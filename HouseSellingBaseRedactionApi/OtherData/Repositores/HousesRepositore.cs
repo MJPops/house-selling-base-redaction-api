@@ -1,10 +1,9 @@
-﻿using HouseSellingBaseRedactionApi.Models;
+﻿using HouseSellingBaseRedactionApi.Interfaces;
+using HouseSellingBaseRedactionApi.Models;
+using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HouseSellingBaseRedactionApi.Interfaces;
-using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 
 namespace HouseSellingBaseRedactionApi.Repositores
 {
@@ -23,10 +22,10 @@ namespace HouseSellingBaseRedactionApi.Repositores
             {
                 throw new NotFoundException();
             }
-            await _dbContext.Users.Include(u=>u.FavoriteHouses).ToListAsync();
+            await _dbContext.Users.Include(u => u.FavoriteHouses).ToListAsync();
             return houses;
         }
-        public async Task<House> GetHouseById(int houseId)
+        public async Task<House> GetHouseByIdAsync(int houseId)
         {
             var house = await _dbContext.Houses.FindAsync(houseId);
             if (house == null)
@@ -38,8 +37,15 @@ namespace HouseSellingBaseRedactionApi.Repositores
         }
         public async Task AddNewHouseAsync(House house)
         {
-            await _dbContext.Houses.AddAsync(house);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.Houses.AddAsync(house);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                throw new AlreadyContainsException();
+            }
         }
         public async Task UpdateHouseAsync(House house)
         {

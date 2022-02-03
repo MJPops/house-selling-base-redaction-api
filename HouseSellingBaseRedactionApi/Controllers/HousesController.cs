@@ -34,7 +34,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         {
             try
             {
-                return new ObjectResult(await _housesRepositore.GetHouseById(id));
+                return new ObjectResult(await _housesRepositore.GetHouseByIdAsync(id));
             }
             catch (NotFoundException)
             {
@@ -45,8 +45,15 @@ namespace HouseSellingBaseRedactionApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(House house)
         {
-            await _housesRepositore.AddNewHouseAsync(house);
-            return Ok();
+            try
+            {
+                await _housesRepositore.AddNewHouseAsync(house);
+                return Ok();
+            }
+            catch (AlreadyContainsException)
+            {
+                return Conflict();
+            }
         }
 
         [HttpPut]

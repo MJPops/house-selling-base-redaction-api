@@ -19,7 +19,7 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// <param name="houseId"></param>
         /// <returns><see cref="House"/></returns>
         /// <exception cref="NotFoundException"></exception>
-        public Task<House> GetHouseById(int houseId);
+        public Task<House> GetHouseByIdAsync(int houseId);
         /// <summary>
         /// Adds a house to the database.
         /// </summary>
