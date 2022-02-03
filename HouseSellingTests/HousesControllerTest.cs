@@ -94,5 +94,55 @@ namespace HouseSellingTests
             Assert.NotNull(result);
             Assert.IsType<ConflictResult>(result.Result);
         }
+
+        [Fact]
+        public void PutWhithCorrectInput()
+        {
+            var controller = new HousesController(mockHouses.Object);
+
+            var result = controller.Put(new House());
+
+            Assert.NotNull(result);
+            Assert.IsType<OkResult>(result.Result);
+        }
+        [Fact]
+        public void PutWhithNotFoundException()
+        {
+            House house = new()
+            {
+                Id = 1,
+                Description = "Lalaal"
+            };
+
+            mockHouses.Setup(f => f.UpdateHouseAsync(house)).Throws(new NotFoundException());
+            var controller = new HousesController(mockHouses.Object);
+
+            var result = controller.Put(house);
+
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
+
+        [Fact]
+        public void DeleteWhithCorrectInput()
+        {
+            var controller = new HousesController(mockHouses.Object);
+
+            var result = controller.Delete(1);
+
+            Assert.NotNull(result);
+            Assert.IsType<OkResult>(result.Result);
+        }
+        [Fact]
+        public void DeleteWhithNotFoundException()
+        {
+            mockHouses.Setup(f => f.RemoveHouseAsync(1)).Throws(new NotFoundException());
+            var controller = new HousesController(mockHouses.Object);
+
+            var result = controller.Delete(1);
+
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result.Result);
+        }
     }
 }

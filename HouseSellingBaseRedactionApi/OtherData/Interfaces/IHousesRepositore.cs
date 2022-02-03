@@ -35,6 +35,6 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// </summary>
         /// <param name="houseId">The ID of the house to be deleted.</param>
         /// <exception cref="NotFoundException"></exception>
-        public Task RemoveHouse(int houseId);
+        public Task RemoveHouseAsync(int houseId);
     }
 }

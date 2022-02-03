@@ -49,10 +49,11 @@ namespace HouseSellingBaseRedactionApi.Repositores
         }
         public async Task UpdateHouseAsync(House house)
         {
+            await GetHouseByIdAsync(house.Id);
             _dbContext.Houses.Update(house);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task RemoveHouse(int houseId)
+        public async Task RemoveHouseAsync(int houseId)
         {
             var house = await _dbContext.Houses.FindAsync(houseId);
             if (house == null)

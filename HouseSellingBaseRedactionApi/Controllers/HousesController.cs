@@ -59,8 +59,15 @@ namespace HouseSellingBaseRedactionApi.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(House house)
         {
-            await _housesRepositore.UpdateHouseAsync(house);
-            return Ok();
+            try
+            {
+                await _housesRepositore.UpdateHouseAsync(house);
+                return Ok();
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete("{id}")]
@@ -68,7 +75,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         {
             try
             {
-                await _housesRepositore.RemoveHouse(id);
+                await _housesRepositore.RemoveHouseAsync(id);
                 return Ok();
             }
             catch (NotFoundException)
