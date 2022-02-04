@@ -35,6 +35,11 @@ namespace HouseSellingBaseRedactionApi.Repositores
             await _dbContext.Houses.Include(h => h.Users).ToListAsync();
             return user;
         }
+        public async Task AddUserAsync(User user)
+        {
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
+        }
         public async Task UpdateUserAsync(User user)
         {
             _dbContext.Users.Update(user);
@@ -50,6 +55,5 @@ namespace HouseSellingBaseRedactionApi.Repositores
             _dbContext.Remove(user);
             await _dbContext.SaveChangesAsync();
         }
-
     }
 }

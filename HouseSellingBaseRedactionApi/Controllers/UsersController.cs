@@ -43,6 +43,13 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Add(User user)
+        {
+            await _userRepositore.AddUserAsync(user);
+            return Ok();
+        }
+
         [HttpPut]
         public async Task<ActionResult> Put(User user)
         {
