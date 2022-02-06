@@ -12,7 +12,7 @@ namespace HouseSellingBaseRedactionApi.OtherData.PersonalExceptions
         /// </summary>
         public NotFoundException()
         {
-            
+
         }
     }
 }

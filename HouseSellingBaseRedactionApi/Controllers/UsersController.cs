@@ -2,7 +2,6 @@
 using HouseSellingBaseRedactionApi.Models;
 using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,7 +26,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
             catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("The users have not been added to the database.");
             }
         }
         [HttpGet("{id}")]
@@ -39,7 +38,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
             catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("No user with this ID was found.");
             }
         }
 
@@ -66,9 +65,9 @@ namespace HouseSellingBaseRedactionApi.Controllers
                 await _userRepositore.UpdateUserAsync(user);
                 return Ok();
             }
-            catch (Exception)
+            catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("No user with this ID was found.");
             }
         }
 
@@ -80,9 +79,9 @@ namespace HouseSellingBaseRedactionApi.Controllers
                 await _userRepositore.RemoveUserAsync(id);
                 return Ok();
             }
-            catch (System.Exception)
+            catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("No user with this ID was found.");
             }
         }
 

@@ -24,7 +24,7 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// Adds a user to the database.
         /// </summary>
         /// <param name="user">The user to add.</param>
-        public Task AddUserAsync(User user);    
+        public Task AddUserAsync(User user);
         /// <summary>
         /// Changes user data in the database according to the given object.
         /// </summary>

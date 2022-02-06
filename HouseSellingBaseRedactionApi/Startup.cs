@@ -1,5 +1,5 @@
 using HouseSellingBaseRedactionApi.Interfaces;
-using HouseSellingBaseRedactionApi.Repositores;
+using HouseSellingBaseRedactionApi.OtherData.Repositores;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

@@ -26,7 +26,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
             catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("Houses not added to the database.");
             }
         }
         [HttpGet("{id}")]
@@ -38,7 +38,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
             catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("Houses with this ID are not added to the database.");
             }
         }
 
@@ -52,7 +52,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
             catch (AlreadyContainsException)
             {
-                return Conflict();
+                return Conflict("This house has already been added to the database.");
             }
         }
 
@@ -66,7 +66,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
             catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("The house with this ID was not found in the database.");
             }
         }
 
@@ -80,7 +80,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
             }
             catch (NotFoundException)
             {
-                return NotFound();
+                return NotFound("The house with this ID was not found in the database.");
             }
         }
     }

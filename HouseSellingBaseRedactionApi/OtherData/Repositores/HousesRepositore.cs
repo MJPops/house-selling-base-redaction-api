@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HouseSellingBaseRedactionApi.Repositores
+namespace HouseSellingBaseRedactionApi.OtherData.Repositores
 {
     public class HousesRepositore : IHousesRepositore
     {
@@ -49,7 +49,8 @@ namespace HouseSellingBaseRedactionApi.Repositores
         }
         public async Task UpdateHouseAsync(House house)
         {
-            _dbContext.Houses.Update(house);
+            house.Users = null;
+            _dbContext.Update(house);
             await _dbContext.SaveChangesAsync();
         }
         public async Task RemoveHouseAsync(int houseId)
