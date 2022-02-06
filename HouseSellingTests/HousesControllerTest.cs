@@ -53,7 +53,7 @@ namespace HouseSellingTests
             var result = controller.Get();
 
             Assert.NotNull(result);
-            Assert.IsType<NotFoundResult>(result.Result.Result);
+            Assert.IsType<NotFoundObjectResult>(result.Result.Result);
         }
         [Fact]
         public void GetWhithNotFoundExceptionAndInputInt()
@@ -64,7 +64,7 @@ namespace HouseSellingTests
             var result = controller.Get(1);
 
             Assert.NotNull(result);
-            Assert.IsType<NotFoundResult>(result.Result.Result);
+            Assert.IsType<NotFoundObjectResult>(result.Result.Result);
         }
 
         [Fact]
@@ -92,7 +92,7 @@ namespace HouseSellingTests
             var result = controller.Add(house);
 
             Assert.NotNull(result);
-            Assert.IsType<ConflictResult>(result.Result);
+            Assert.IsType<ConflictObjectResult>(result.Result);
         }
 
         [Fact]
@@ -120,7 +120,7 @@ namespace HouseSellingTests
             var result = controller.Put(house);
 
             Assert.NotNull(result);
-            Assert.IsType<NotFoundResult>(result.Result);
+            Assert.IsType<NotFoundObjectResult>(result.Result);
         }
 
         [Fact]
@@ -142,7 +142,7 @@ namespace HouseSellingTests
             var result = controller.Delete(1);
 
             Assert.NotNull(result);
-            Assert.IsType<NotFoundResult>(result.Result);
+            Assert.IsType<NotFoundObjectResult>(result.Result);
         }
     }
 }
