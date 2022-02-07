@@ -1,4 +1,4 @@
-using HouseSellingBaseRedactionApi.Controllers;
+﻿using HouseSellingBaseRedactionApi.Controllers;
 using HouseSellingBaseRedactionApi.Interfaces;
 using HouseSellingBaseRedactionApi.Models;
 using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
@@ -9,46 +9,46 @@ using Xunit;
 
 namespace HouseSellingTests
 {
-    public class HousesControllerTest
+    public class UsersControllerTest
     {
-        private readonly Mock<IHousesRepositore> mockHouses = new();
+        private readonly Mock<IUsersRepositore> mockUsers = new();
 
         [Fact]
         public void GetWhithCorrectResult()
         {
-            mockHouses.Setup(f => f.GetAllHousesAsync()).ReturnsAsync(new List<House>
+            mockUsers.Setup(f => f.GetAllUsersAsync()).ReturnsAsync(new List<User>
             {
-                new House { Id = 1, Description = "lalala"}
+                new User { Id = 1, Name = "lalala"}
             });
-            var controller = new HousesController(mockHouses.Object);
+            var controller = new UsersController(mockUsers.Object);
 
             var result = controller.Get();
 
             var objectResult = Assert.IsType<ObjectResult>(result.Result.Result);
-            var model = Assert.IsAssignableFrom<IEnumerable<House>>(objectResult.Value);
+            var model = Assert.IsAssignableFrom<IEnumerable<User>>(objectResult.Value);
             Assert.NotEmpty(model);
         }
         [Fact]
         public void GetWhithCorrectResultAndInputInt()
         {
-            mockHouses.Setup(f => f.GetHouseByIdAsync(1)).ReturnsAsync(new House
+            mockUsers.Setup(f => f.GetUserByIdAsync(1)).ReturnsAsync(new User
             {
                 Id = 1,
-                Description = "lalala"
+                Name = "lalala"
             });
-            var controller = new HousesController(mockHouses.Object);
+            var controller = new UsersController(mockUsers.Object);
 
             var result = controller.Get(1);
 
             var objectResult = Assert.IsType<ObjectResult>(result.Result.Result);
-            var model = Assert.IsAssignableFrom<House>(objectResult.Value);
+            var model = Assert.IsAssignableFrom<User>(objectResult.Value);
             Assert.NotNull(model);
         }
         [Fact]
         public void GetWhithNotFoundException()
         {
-            mockHouses.Setup(f => f.GetAllHousesAsync()).Throws(new NotFoundException());
-            var controller = new HousesController(mockHouses.Object);
+            mockUsers.Setup(f => f.GetAllUsersAsync()).Throws(new NotFoundException());
+            var controller = new UsersController(mockUsers.Object);
 
             var result = controller.Get();
 
@@ -58,8 +58,8 @@ namespace HouseSellingTests
         [Fact]
         public void GetWhithNotFoundExceptionAndInputInt()
         {
-            mockHouses.Setup(f => f.GetHouseByIdAsync(1)).Throws(new NotFoundException());
-            var controller = new HousesController(mockHouses.Object);
+            mockUsers.Setup(f => f.GetUserByIdAsync(1)).Throws(new NotFoundException());
+            var controller = new UsersController(mockUsers.Object);
 
             var result = controller.Get(1);
 
@@ -70,54 +70,55 @@ namespace HouseSellingTests
         [Fact]
         public void AddWhithCorrectInput()
         {
-            var controller = new HousesController(mockHouses.Object);
+            var controller = new UsersController(mockUsers.Object);
 
-            var result = controller.Add(new House());
+            var result = controller.Add(new User());
 
             Assert.NotNull(result);
             Assert.IsType<OkResult>(result.Result);
-        }
-        [Fact]
-        public void AddWhithAlreadyContainsException()
-        {
-            House house = new()
-            {
-                Id = 1,
-                Description = "Lalaal"
-            };
-
-            mockHouses.Setup(f => f.AddNewHouseAsync(house)).Throws(new AlreadyContainsException());
-            var controller = new HousesController(mockHouses.Object);
-
-            var result = controller.Add(house);
-
-            Assert.NotNull(result);
-            Assert.IsType<ConflictObjectResult>(result.Result);
         }
 
         [Fact]
         public void PutWhithCorrectInput()
         {
-            var controller = new HousesController(mockHouses.Object);
+            var controller = new UsersController(mockUsers.Object);
 
-            var result = controller.Put(new House());
+            var result = controller.Put(new User());
 
             Assert.NotNull(result);
             Assert.IsType<OkResult>(result.Result);
         }
         [Fact]
-        public void PutWhithNotFoundException()
+        public void SetAdminRoleWhithCorrectInput()
         {
-            House house = new()
+            User user = new()
             {
                 Id = 1,
-                Description = "Lalaal"
+                Name = "Lalaal"
             };
 
-            mockHouses.Setup(f => f.UpdateHouseAsync(house)).Throws(new NotFoundException());
-            var controller = new HousesController(mockHouses.Object);
+            mockUsers.Setup(f => f.GetUserByIdAsync(1)).ReturnsAsync(user);
+            var controller = new UsersController(mockUsers.Object);
 
-            var result = controller.Put(house);
+            var result = controller.SetAdminRole(1);
+
+            Assert.NotNull(result);
+            Assert.Equal("admin", user.Role);
+            Assert.IsType<OkResult>(result.Result);
+        }
+        [Fact]
+        public void SetAdminRoleWhithNotFoundException()
+        {
+            User user = new()
+            {
+                Id = 1,
+                Name = "Lalaal"
+            };
+
+            mockUsers.Setup(f => f.GetUserByIdAsync(1)).Throws(new NotFoundException());
+            var controller = new UsersController(mockUsers.Object);
+
+            var result = controller.SetAdminRole(1);
 
             Assert.NotNull(result);
             Assert.IsType<NotFoundObjectResult>(result.Result);
@@ -126,7 +127,7 @@ namespace HouseSellingTests
         [Fact]
         public void DeleteWhithCorrectInput()
         {
-            var controller = new HousesController(mockHouses.Object);
+            var controller = new UsersController(mockUsers.Object);
 
             var result = controller.Delete(1);
 
@@ -136,8 +137,8 @@ namespace HouseSellingTests
         [Fact]
         public void DeleteWhithNotFoundException()
         {
-            mockHouses.Setup(f => f.RemoveHouseAsync(1)).Throws(new NotFoundException());
-            var controller = new HousesController(mockHouses.Object);
+            mockUsers.Setup(f => f.RemoveUserAsync(1)).Throws(new NotFoundException());
+            var controller = new UsersController(mockUsers.Object);
 
             var result = controller.Delete(1);
 
