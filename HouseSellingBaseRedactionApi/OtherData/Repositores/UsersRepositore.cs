@@ -42,8 +42,7 @@ namespace HouseSellingBaseRedactionApi.OtherData.Repositores
         }
         public async Task UpdateUserAsync(User user)
         {
-            user.FavoriteHouses = null;
-            _dbContext.Update(user);
+            _dbContext.Entry(user).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
         public async Task RemoveUserAsync(int userId)
