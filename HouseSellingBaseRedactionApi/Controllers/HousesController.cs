@@ -1,6 +1,8 @@
 ﻿using HouseSellingBaseRedactionApi.Interfaces;
 using HouseSellingBaseRedactionApi.Models;
 using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -43,6 +45,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Add(House house)
         {
             try
@@ -57,6 +60,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Put(House house)
         {
             try
@@ -71,6 +75,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Delete(int id)
         {
             try

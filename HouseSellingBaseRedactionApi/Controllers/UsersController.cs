@@ -1,6 +1,8 @@
 ﻿using HouseSellingBaseRedactionApi.Interfaces;
 using HouseSellingBaseRedactionApi.Models;
 using HouseSellingBaseRedactionApi.OtherData.PersonalExceptions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -43,6 +45,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Add(User user)
         {
             await _userRepositore.AddUserAsync(user);
@@ -50,12 +53,14 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpPut]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Put(User user)
         {
             await _userRepositore.UpdateUserAsync(user);
             return Ok();
         }
         [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> SetAdminRole(int id)
         {
             try
@@ -72,6 +77,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Delete(int id)
         {
             try
