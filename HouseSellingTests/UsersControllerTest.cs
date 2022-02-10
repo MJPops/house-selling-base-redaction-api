@@ -14,7 +14,7 @@ namespace HouseSellingTests
         private readonly Mock<IUsersRepositore> mockUsers = new();
 
         [Fact]
-        public void GetWhithCorrectResult()
+        public void GetWithCorrectResult()
         {
             mockUsers.Setup(f => f.GetAllUsersAsync()).ReturnsAsync(new List<User>
             {
@@ -29,7 +29,7 @@ namespace HouseSellingTests
             Assert.NotEmpty(model);
         }
         [Fact]
-        public void GetWhithCorrectResultAndInputInt()
+        public void GetWithCorrectResultAndInputInt()
         {
             mockUsers.Setup(f => f.GetUserByIdAsync(1)).ReturnsAsync(new User
             {
@@ -45,7 +45,7 @@ namespace HouseSellingTests
             Assert.NotNull(model);
         }
         [Fact]
-        public void GetWhithNotFoundException()
+        public void GetWithNotFoundException()
         {
             mockUsers.Setup(f => f.GetAllUsersAsync()).Throws(new NotFoundException());
             var controller = new UsersController(mockUsers.Object);
@@ -56,7 +56,7 @@ namespace HouseSellingTests
             Assert.IsType<NotFoundObjectResult>(result.Result.Result);
         }
         [Fact]
-        public void GetWhithNotFoundExceptionAndInputInt()
+        public void GetWithNotFoundExceptionAndInputInt()
         {
             mockUsers.Setup(f => f.GetUserByIdAsync(1)).Throws(new NotFoundException());
             var controller = new UsersController(mockUsers.Object);
@@ -68,7 +68,7 @@ namespace HouseSellingTests
         }
 
         [Fact]
-        public void AddWhithCorrectInput()
+        public void AddWithCorrectInput()
         {
             var controller = new UsersController(mockUsers.Object);
 
@@ -79,7 +79,7 @@ namespace HouseSellingTests
         }
 
         [Fact]
-        public void PutWhithCorrectInput()
+        public void PutWithCorrectInput()
         {
             var controller = new UsersController(mockUsers.Object);
 
@@ -89,7 +89,7 @@ namespace HouseSellingTests
             Assert.IsType<OkResult>(result.Result);
         }
         [Fact]
-        public void SetAdminRoleWhithCorrectInput()
+        public void SetAdminRoleWithCorrectInput()
         {
             User user = new()
             {
@@ -107,7 +107,7 @@ namespace HouseSellingTests
             Assert.IsType<OkResult>(result.Result);
         }
         [Fact]
-        public void SetAdminRoleWhithNotFoundException()
+        public void SetAdminRoleWithNotFoundException()
         {
             User user = new()
             {
@@ -125,7 +125,7 @@ namespace HouseSellingTests
         }
 
         [Fact]
-        public void DeleteWhithCorrectInput()
+        public void DeleteWithCorrectInput()
         {
             var controller = new UsersController(mockUsers.Object);
 
@@ -135,7 +135,7 @@ namespace HouseSellingTests
             Assert.IsType<OkResult>(result.Result);
         }
         [Fact]
-        public void DeleteWhithNotFoundException()
+        public void DeleteWithNotFoundException()
         {
             mockUsers.Setup(f => f.RemoveUserAsync(1)).Throws(new NotFoundException());
             var controller = new UsersController(mockUsers.Object);

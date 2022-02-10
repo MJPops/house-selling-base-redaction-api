@@ -14,7 +14,7 @@ namespace HouseSellingTests
         private readonly Mock<IHousesRepositore> mockHouses = new();
 
         [Fact]
-        public void GetWhithCorrectResult()
+        public void GetWithCorrectResult()
         {
             mockHouses.Setup(f => f.GetAllHousesAsync()).ReturnsAsync(new List<House>
             {
@@ -29,7 +29,7 @@ namespace HouseSellingTests
             Assert.NotEmpty(model);
         }
         [Fact]
-        public void GetWhithCorrectResultAndInputInt()
+        public void GetWithCorrectResultAndInputInt()
         {
             mockHouses.Setup(f => f.GetHouseByIdAsync(1)).ReturnsAsync(new House
             {
@@ -45,7 +45,7 @@ namespace HouseSellingTests
             Assert.NotNull(model);
         }
         [Fact]
-        public void GetWhithNotFoundException()
+        public void GetWithNotFoundException()
         {
             mockHouses.Setup(f => f.GetAllHousesAsync()).Throws(new NotFoundException());
             var controller = new HousesController(mockHouses.Object);
@@ -56,7 +56,7 @@ namespace HouseSellingTests
             Assert.IsType<NotFoundObjectResult>(result.Result.Result);
         }
         [Fact]
-        public void GetWhithNotFoundExceptionAndInputInt()
+        public void GetWithNotFoundExceptionAndInputInt()
         {
             mockHouses.Setup(f => f.GetHouseByIdAsync(1)).Throws(new NotFoundException());
             var controller = new HousesController(mockHouses.Object);
@@ -68,7 +68,7 @@ namespace HouseSellingTests
         }
 
         [Fact]
-        public void AddWhithCorrectInput()
+        public void AddWithCorrectInput()
         {
             var controller = new HousesController(mockHouses.Object);
 
@@ -78,7 +78,7 @@ namespace HouseSellingTests
             Assert.IsType<OkResult>(result.Result);
         }
         [Fact]
-        public void AddWhithAlreadyContainsException()
+        public void AddWithAlreadyContainsException()
         {
             House house = new()
             {
@@ -96,7 +96,7 @@ namespace HouseSellingTests
         }
 
         [Fact]
-        public void PutWhithCorrectInput()
+        public void PutWithCorrectInput()
         {
             var controller = new HousesController(mockHouses.Object);
 
@@ -106,7 +106,7 @@ namespace HouseSellingTests
             Assert.IsType<OkResult>(result.Result);
         }
         [Fact]
-        public void PutWhithNotFoundException()
+        public void PutWithNotFoundException()
         {
             House house = new()
             {
@@ -124,7 +124,7 @@ namespace HouseSellingTests
         }
 
         [Fact]
-        public void DeleteWhithCorrectInput()
+        public void DeleteWithCorrectInput()
         {
             var controller = new HousesController(mockHouses.Object);
 
@@ -134,7 +134,7 @@ namespace HouseSellingTests
             Assert.IsType<OkResult>(result.Result);
         }
         [Fact]
-        public void DeleteWhithNotFoundException()
+        public void DeleteWithNotFoundException()
         {
             mockHouses.Setup(f => f.RemoveHouseAsync(1)).Throws(new NotFoundException());
             var controller = new HousesController(mockHouses.Object);
