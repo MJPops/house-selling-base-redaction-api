@@ -33,13 +33,6 @@ namespace JWTAuth_Validation.Controllers
             return BadRequest("Please pass the valid Username and Password");
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        [HttpGet]
-        public IActionResult GetResult()
-        {
-            return Ok("API Validated");
-        }
-
         private string GenerateJwtToken(string userName)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
