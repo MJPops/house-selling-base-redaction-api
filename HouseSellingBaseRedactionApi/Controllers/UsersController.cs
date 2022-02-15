@@ -49,7 +49,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         public async Task<ActionResult> Add(User user)
         {
             await _userRepositore.AddUserAsync(user);
-            return Ok();
+            return Ok("User added");
         }
 
         [HttpPut]
@@ -57,7 +57,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
         public async Task<ActionResult> Put(User user)
         {
             await _userRepositore.UpdateUserAsync(user);
-            return Ok();
+            return Ok("User updated");
         }
         [HttpPut("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -68,7 +68,7 @@ namespace HouseSellingBaseRedactionApi.Controllers
                 var user = await _userRepositore.GetUserByIdAsync(id);
                 user.Role = "admin";
                 await _userRepositore.UpdateUserAsync(user);
-                return Ok();
+                return Ok("User is admin");
             }
             catch (NotFoundException)
             {

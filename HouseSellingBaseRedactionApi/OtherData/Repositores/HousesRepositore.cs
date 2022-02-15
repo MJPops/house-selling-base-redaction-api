@@ -50,6 +50,17 @@ namespace HouseSellingBaseRedactionApi.OtherData.Repositores
         public async Task UpdateHouseAsync(House house)
         {
             _dbContext.Entry(house).State = EntityState.Modified;
+
+            List<User> usersToAdd = new();
+
+            foreach (var housesUser in house.Users)
+            {
+                usersToAdd.Add(await _dbContext.Users.FindAsync(housesUser.Id));
+            }
+
+            await _dbContext.Users.Include(u => u.FavoriteHouses).ToListAsync();
+            house.Users = usersToAdd;
+
             await _dbContext.SaveChangesAsync();
         }
         public async Task RemoveHouseAsync(int houseId)

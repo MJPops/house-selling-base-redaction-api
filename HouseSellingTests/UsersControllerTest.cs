@@ -75,7 +75,7 @@ namespace HouseSellingTests
             var result = controller.Add(new User());
 
             Assert.NotNull(result);
-            Assert.IsType<OkResult>(result.Result);
+            Assert.IsType<OkObjectResult>(result.Result);
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace HouseSellingTests
             var result = controller.Put(new User());
 
             Assert.NotNull(result);
-            Assert.IsType<OkResult>(result.Result);
+            Assert.IsType<OkObjectResult>(result.Result);
         }
         [Fact]
         public void SetAdminRoleWithCorrectInput()
@@ -104,7 +104,7 @@ namespace HouseSellingTests
 
             Assert.NotNull(result);
             Assert.Equal("admin", user.Role);
-            Assert.IsType<OkResult>(result.Result);
+            Assert.IsType<OkObjectResult>(result.Result);
         }
         [Fact]
         public void SetAdminRoleWithNotFoundException()
