@@ -77,6 +77,18 @@ namespace HouseSellingTests
             Assert.NotNull(result);
             Assert.IsType<OkObjectResult>(result.Result);
         }
+        [Fact]
+        public void AddWithException()
+        {
+            User user = new();
+            mockUsers.Setup(f => f.AddUserAsync(user)).Throws(new AlreadyContainsException());
+            var controller = new UsersController(mockUsers.Object);
+
+            var result = controller.Add(user);
+
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundObjectResult>(result.Result);
+        }
 
         [Fact]
         public void PutWithCorrectInput()
@@ -87,6 +99,18 @@ namespace HouseSellingTests
 
             Assert.NotNull(result);
             Assert.IsType<OkObjectResult>(result.Result);
+        }
+        [Fact]
+        public void PutWithException()
+        {
+            User user = new();
+            mockUsers.Setup(f=>f.UpdateUserAsync(user)).Throws(new NotFoundException());
+            var controller = new UsersController(mockUsers.Object);
+
+            var result = controller.Put(user);
+
+            Assert.NotNull(result);
+            Assert.IsType<NotFoundResult>(result.Result);
         }
         [Fact]
         public void SetAdminRoleWithCorrectInput()

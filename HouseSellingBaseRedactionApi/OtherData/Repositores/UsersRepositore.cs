@@ -37,11 +37,21 @@ namespace HouseSellingBaseRedactionApi.OtherData.Repositores
         }
         public async Task AddUserAsync(User user)
         {
+            if (await _dbContext.Users.FindAsync(user.Id) != null)
+            {
+                throw new AlreadyContainsException();
+            }
+
             await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
         }
         public async Task UpdateUserAsync(User user)
         {
+            if (await _dbContext.Users.FindAsync(user.Id) == null)
+            {
+                throw new NotFoundException();
+            }
+
             _dbContext.Entry(user).State = EntityState.Modified;
 
             List<House> housesToAdd = new();

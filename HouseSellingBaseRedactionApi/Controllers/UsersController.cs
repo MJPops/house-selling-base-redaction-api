@@ -48,16 +48,30 @@ namespace HouseSellingBaseRedactionApi.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Add(User user)
         {
-            await _userRepositore.AddUserAsync(user);
-            return Ok("User added");
+            try
+            {
+                await _userRepositore.AddUserAsync(user);
+                return Ok("User added");
+            }
+            catch (AlreadyContainsException)
+            {
+                return NotFound("This user has already been added to the database.");
+            }
         }
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult> Put(User user)
         {
-            await _userRepositore.UpdateUserAsync(user);
-            return Ok("User updated");
+            try
+            {
+                await _userRepositore.UpdateUserAsync(user);
+                return Ok("User updated");
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
         [HttpPut("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

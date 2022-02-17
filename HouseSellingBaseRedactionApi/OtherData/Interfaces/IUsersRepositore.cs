@@ -24,11 +24,13 @@ namespace HouseSellingBaseRedactionApi.Interfaces
         /// Adds a user to the database.
         /// </summary>
         /// <param name="user">The user to add.</param>
+        /// <exception cref="AlreadyContainsException"></exception>
         public Task AddUserAsync(User user);
         /// <summary>
         /// Changes user data in the database according to the given object.
         /// </summary>
         /// <param name="user">New user model.</param>
+        /// <exception cref="NotFoundException"></exception>
         public Task UpdateUserAsync(User user);
         /// <summary>
         /// Deletes the user with the matching ID from the database.
